@@ -1,52 +1,62 @@
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../../common/form-control/form-control";
-import {required} from "../../utils/validators/login-form-validator";
-import s from "../../common/form-control/form-control.module.css";
-import React from "react";
+import React from 'react';
+import {Alert, Button, Checkbox, Form, Input} from 'antd';
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {DataForm} from "./login";
 
 type LoginFormProps = {
     captchaUrl: string | null
+    onSubmit: (formValue: DataForm) => void
 }
 
-export const LoginForm = ({
-                              handleSubmit,
-                              error,
-                              captchaUrl
-                          }: InjectedFormProps<DataForm, LoginFormProps> & LoginFormProps) => {
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={'Login'}
-                       component={Input}
-                       name={'email'}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field placeholder={'Password'}
-                       component={Input}
-                       name={'password'}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field name={'rememberMe'}
-                       type={'checkbox'}
-                       component={Input}
-                /> Remember me
-            </div>
+const LoginForm = ({
+                       onSubmit
+                   }: InjectedFormProps<DataForm, LoginFormProps> & LoginFormProps) => {
 
-            {captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}
-            {captchaUrl && <Field placeholder={'Antibot symbols'}
-                                  component={Input}
-                                  name={'captcha'}
-                                  validate={[required]}/>}
+    const onFinish = (value: any) => {
+        <Alert message="Success" type="success" showIcon/>
+        onSubmit(value)
+    };
 
-            {error && <span className={s.formSummaryError}>{error}</span>}
-            <div>
-                <button>Sign up</button>
-            </div>
-        </form>
-    )
-}
+    const onFinishFailed = () => {
+        <Alert message="Warning" type="warning" showIcon closable/>
+    };
+
+    return <Form
+        labelCol={{span: 8}}
+        wrapperCol={{span: 16}}
+        style={{maxWidth: 600}}
+        initialValues={{remember: true}}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+    >
+        <Form.Item<DataForm>
+            name="email"
+            rules={[{required: true, message: 'Please input your username!'}]}
+        >
+            <Input placeholder={'Email'}/>
+        </Form.Item>
+
+        <Form.Item<DataForm>
+            name="password"
+            rules={[{required: true, message: 'Please input your password!'}]}
+        >
+            <Input.Password placeholder={'Password'}/>
+        </Form.Item>
+
+        <Form.Item<DataForm>
+            name="rememberMe"
+            valuePropName="checked"
+            wrapperCol={{offset: 0, span: 16}}
+        >
+            <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{offset: 0, span: 16}}>
+            <Button type="primary" htmlType="submit">
+                Sign in
+            </Button>
+        </Form.Item>
+    </Form>
+};
 
 export const LoginReduxForm = reduxForm<DataForm, LoginFormProps>({form: 'login'})(LoginForm)

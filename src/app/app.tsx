@@ -3,15 +3,19 @@ import {Alert, Layout} from 'antd';
 import {useAppSuspendedData} from "../utils/hooks/useAppData";
 import {thunks} from "../redux/thunks/thunks";
 import {Preloader} from "../common/preloader/preloader";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Header} from "./header/header";
 import {AppContent} from "./content/content";
 import {Footer} from "./footer/footer";
+import {getIsAuth} from "../utils/selectors/auth-selectors/auth-selectors";
+import {Login} from "../pages/login/login";
 
 const App = () => {
 
     const {isInitialized} = useAppSuspendedData()
     const dispatch = useDispatch()
+    const isAuth = useSelector(getIsAuth)
+
 
     useEffect(() => {
         dispatch(thunks.initialized());
@@ -30,12 +34,19 @@ const App = () => {
         return <Preloader/>;
     }
 
+    if (!isAuth) return <Login/>
+
     return (
-        <Layout>
+
+        <Layout style={{minHeight:'100vh'}}>
             <Header/>
-            <AppContent/>
+            <Layout>
+                <AppContent/>
+            </Layout>
             <Footer/>
         </Layout>
+
+
     );
 };
 

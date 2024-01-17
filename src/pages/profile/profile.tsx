@@ -1,12 +1,14 @@
 import React, {useEffect} from "react";
-import {useHistory, useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {Redirect, useHistory, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {useProfileData} from "../../utils/hooks/useProfileData";
 import {thunks} from "../../redux/thunks/thunks";
 import ProfileInfo from "../../components/profile-info/profile-info";
 import MyPost from "./MyPosts/my-post";
+import {getIsAuth} from "../../utils/selectors/auth-selectors/auth-selectors";
 
 const Profile = () => {
+
 
     const {userId} = useParams<{ userId: string }>();
     const history = useHistory();

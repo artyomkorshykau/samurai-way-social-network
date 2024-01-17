@@ -2,7 +2,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import {useHeaderData} from "../../utils/hooks/useHeaderData";
 import {UserOutlined} from "@ant-design/icons";
-import {Avatar, Button, Layout, message, Popconfirm} from "antd";
+import {Avatar, Button, Layout, Popconfirm} from "antd";
 import s from './header.module.css'
 
 export const Header = () => {
@@ -11,14 +11,7 @@ export const Header = () => {
     const {Header} = Layout;
 
     const confirmHandler = (e?: React.MouseEvent<HTMLElement>) => {
-        console.log(e);
-        message.success('Click on Yes')
         dispatch(logout)
-    };
-
-    const cancelHandler = (e?: React.MouseEvent<HTMLElement>) => {
-        console.log(e);
-        message.error('Click on No');
     };
 
     return <Header
@@ -39,11 +32,10 @@ export const Header = () => {
                 <div style={{color: 'white'}}>{login}
                     <Avatar style={{backgroundColor: '#87d068', margin: "0 20px"}} icon={<UserOutlined/>}/>
                     <Popconfirm
-                        title="Попутал?"
+                        title="Вы уверены?"
                         onConfirm={confirmHandler}
-                        onCancel={cancelHandler}
                         okText="Да"
-                        cancelText="Не уверен"
+                        cancelText="Нет"
                     >
                         <Button danger ghost={true}>Выйти</Button>
                     </Popconfirm>

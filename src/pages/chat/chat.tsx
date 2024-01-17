@@ -1,9 +1,11 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {thunks} from "../../redux/thunks/thunks";
 import {getSocketStatus} from "../../utils/selectors/chat-selectors/chat-selectors";
 import {Messages} from "./messages/messages";
 import {AddMessageForm} from "../../components/add-message-form/add-message-form";
+import {Redirect} from "react-router-dom";
+import {getIsAuth} from "../../utils/selectors/auth-selectors/auth-selectors";
 
 export type ChatMessageApi = {
     message: string
@@ -25,7 +27,6 @@ const Chat = () => {
             dispatch(thunks.stopMessagesListening())
         }
     }, []);
-
 
     return <div>
         {status === 'error' && <div>Ошибка! Обновите страницу.</div>}

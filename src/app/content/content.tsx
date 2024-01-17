@@ -33,7 +33,6 @@ export const AppContent = () => {
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
-                    <Route path='/login' component={Login}/>
                     <Route path='/chat' render={() => <SuspendedChat/>}/>
                     <Route path='*' render={() => <SuspendedProfile/>}/>
                 </Switch>

@@ -1,16 +1,19 @@
 import React, {useEffect} from 'react';
 import {Pagination} from "../../common/pagination/pagination";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {thunks} from "../../redux/thunks/thunks";
 import {Preloader} from "../../common/preloader/preloader";
 import {useUserData} from "../../utils/hooks/useUserData";
 import {User} from "../../components/user/user";
 import {Filter} from "../../redux/reducers/users-reducer";
 import {UserSearchForm} from "../../components/user-search-form/user-search-form";
+import {Redirect} from "react-router-dom";
+import {getIsAuth} from "../../utils/selectors/auth-selectors/auth-selectors";
 
 const Users = () => {
 
     const {filter, users, totalUserCount, pageSize, currentPage, isFollowing, isFetching} = useUserData()
+    const isAuth = useSelector(getIsAuth)
 
     const dispatch = useDispatch()
 
@@ -30,6 +33,8 @@ const Users = () => {
     const unfollow = (id: number) => {
         dispatch(thunks.unFollow(id))
     }
+
+    if (!isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
@@ -54,7 +59,6 @@ const Users = () => {
                               key={el.id}/>)
                 }
             </div>
-
         </div>
     );
 };

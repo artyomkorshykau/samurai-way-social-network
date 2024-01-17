@@ -16,7 +16,6 @@ type Event = 'message-received' | 'status-changed'
 
 const closeHandler = () => {
     notifyStatusChanged('pending')
-    alert('The connection to the channel is lost. Auto-connection after 3 seconds.')
     setTimeout(createChannel, 3000)
 }
 

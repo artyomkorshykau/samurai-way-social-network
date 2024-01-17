@@ -58,8 +58,8 @@ const ProfileInfo = ({isOwner}: Props) => {
                 <img src={profile.photos.large || photo} alt="" className={s.ava}/>
 
                 <div>{isOwner &&
-                    <Upload {...changeMainPhotoHandler}>
-                        <Button icon={<UploadOutlined/>}>Обновить фото</Button>
+                    <Upload >
+                        <Button htmlType={'submit'} onSubmit={changeMainPhotoHandler} icon={<UploadOutlined/>}>Обновить фото</Button>
                     </Upload>}
                 </div>
 
