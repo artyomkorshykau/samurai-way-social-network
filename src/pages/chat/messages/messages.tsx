@@ -10,7 +10,7 @@ export const Messages = () => {
     const messages = useSelector(getChatMessages)
 
     const messageAnchorRef = useRef<HTMLDivElement>(null)
-    const [autoScroll, setAutoScroll] = useState(false)
+    const [autoScroll, setAutoScroll] = useState(true)
 
     const scrollHandler = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
         let element = event.currentTarget

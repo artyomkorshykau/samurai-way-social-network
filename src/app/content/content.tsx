@@ -7,6 +7,7 @@ import Settings from "../../pages/settings/settings";
 import {Login} from "../../pages/login/login";
 import {useAppSuspendedData} from "../../utils/hooks/useAppData";
 import Navbar from "../navbar/navbar";
+import {Footer} from "../footer/footer";
 
 export const AppContent = () => {
     const {SuspendedProfile, SuspendedUsers, SuspendedChat} = useAppSuspendedData()
@@ -35,6 +36,7 @@ export const AppContent = () => {
                     <Route path='/settings' component={Settings}/>
                     <Route path='/chat' render={() => <SuspendedChat/>}/>
                     <Route path='*' render={() => <SuspendedProfile/>}/>
+
                 </Switch>
             </Content>
         </Layout>

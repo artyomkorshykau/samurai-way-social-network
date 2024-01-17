@@ -8,7 +8,7 @@
 
 .textarea {
     width: 100%;
-    height: 25px;
+    height: 31px;
 
     & textarea {
         all: unset;
