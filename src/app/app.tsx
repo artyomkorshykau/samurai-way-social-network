@@ -38,7 +38,7 @@ const App = () => {
 
     return (
 
-        <Layout style={{minHeight: '100vh'}}>
+        <Layout style={{}}>
             <Header/>
             <Layout>
                 <AppContent/>
